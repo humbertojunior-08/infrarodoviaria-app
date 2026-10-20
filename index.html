@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Programa InfraRodoviária</title>
+<meta name="description" content="Painel do Programa InfraRodoviária Ceará">
+<meta name="theme-color" content="#0f9247">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Programa InfraRodoviária">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="48x48" href="icones/icon-48.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  html, body { margin: 0; height: 100%; background: #f4f6fb; font-family: system-ui, sans-serif; }
+  /* faixa com as cores do Ceará, respeitando o entalhe do celular */
+  .faixa { height: calc(4px + env(safe-area-inset-top)); background: linear-gradient(90deg, #f1662c 0%, #ffb81c 25%, #2ba84a 60%, #4fc3d9 100%); }
+  iframe { display: block; border: 0; width: 100%; height: calc(100dvh - 4px - env(safe-area-inset-top)); }
+  .carregando { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; color: #5b6878; font-size: 14px; pointer-events: none; }
+  .carregando img { width: 72px; height: 72px; border-radius: 18px; }
+  .carregando a { pointer-events: auto; color: #0b7a3b; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="faixa" aria-hidden="true"></div>
+<div class="carregando" id="carregando">
+  <img src="icones/icon-192.png" alt="">
+  <span>Abrindo o painel…</span>
+  <a id="abrirFora" href="#" hidden>Não abriu? Toque aqui para abrir no navegador</a>
+</div>
+<iframe id="painel" title="Programa InfraRodoviária" allow="clipboard-write; fullscreen"></iframe>
+<script>
+  /* Endereço oficial do painel (Apps Script). O login continua sendo feito lá. */
+  var PAINEL = 'https://script.google.com/macros/s/AKfycbwviGZlOptWTLdXs4fmCX2HOpk1Cho0_bV3Kj_EMjHksGIehK7yXh2ID3_vYMfaLh6rWw/exec';
+  var f = document.getElementById('painel'), c = document.getElementById('carregando'), a = document.getElementById('abrirFora');
+  a.href = PAINEL;
+  f.addEventListener('load', function () { c.style.display = 'none'; });
+  setTimeout(function () { a.hidden = false; }, 8000);
+  f.src = PAINEL;
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () {});
+</script>
+</body>
+</html>
