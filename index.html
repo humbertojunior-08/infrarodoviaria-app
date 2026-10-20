@@ -36,7 +36,8 @@
   var PAINEL = 'https://script.google.com/macros/s/AKfycbwviGZlOptWTLdXs4fmCX2HOpk1Cho0_bV3Kj_EMjHksGIehK7yXh2ID3_vYMfaLh6rWw/exec';
   var f = document.getElementById('painel'), c = document.getElementById('carregando'), a = document.getElementById('abrirFora');
   a.href = PAINEL;
-  f.addEventListener('load', function () { c.style.display = 'none'; });
+  /* o Google monta o painel alguns segundos depois do 'load': mantém o aviso até lá */
+  f.addEventListener('load', function () { setTimeout(function () { c.style.display = 'none'; }, 4500); });
   setTimeout(function () { a.hidden = false; }, 8000);
   f.src = PAINEL;
   if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () {});
