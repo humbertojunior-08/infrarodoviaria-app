@@ -1,6 +1,6 @@
 /* Service worker mínimo: permite instalar o atalho.
    Não guarda o painel em cache — ele sempre abre a versão publicada. */
-var CACHE = 'atalho-v1';
+var CACHE = 'atalho-v2';
 var BASICO = ['./', 'index.html', 'manifest.webmanifest', 'apple-touch-icon.png', 'icones/icon-192.png', 'icones/icon-512.png'];
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(BASICO); }));
